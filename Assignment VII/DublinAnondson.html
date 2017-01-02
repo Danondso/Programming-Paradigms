@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<title>Assignment VII</title>
+<script>
+//EXAM CLASS
+function Exam(score, LetterGrade)
+{
+  var grade;
+  var letter;
+  var that = this;
+  
+  if(score <= -1)
+    {score = 0;}
+  if(score >= 101)
+    {score = 100;} 
+  if((score >= 0)||(score <= 100))
+    {grade = score;}
+
+   switch(LetterGrade)	
+		  {
+		  case "A":
+			letter = LetterGrade;
+		  	break;
+		  case "B":
+		  	letter = LetterGrade;
+		  	break;
+		  case "C":
+		  	letter = LetterGrade;
+		  	break;
+		  case "D":
+		  	letter = LetterGrade;
+		  	break;
+		  case "F":
+		  	letter = LetterGrade;
+		  	break;
+		  default:
+		  	letter = "F";
+		  	break;
+            }			
+		/*Privileged Exam Methods*/
+		this.getLetter = function(){return letter;} 
+    	this.getGrade = function(){return grade;}	
+  	
+}
+//END EXAM CLASS
+//COURSEWORK CLASS
+function Coursework()
+{
+   var Score = 0;
+   var CountScore = 0;
+   var that = this;  
+  
+  /*Privileged Coursework Methods*/
+   this.AddScore = function(score)
+  { 
+      var check = score.split(",");
+    for(count = 0; count<score.length; count++)
+   {
+     var got = parseInt(score[count]);
+         
+        if(got <= -1)
+	   	{
+	   	  Score = 0;
+	   	}
+	    	
+	if(got >= 101)
+	  Score = 100;
+    	
+	   	if((got >= 0) ||(got <= 100))
+	   	{
+	   	 Score += got;
+	      CountScore++;
+	    }
+   }
+  
+ }
+
+  this.average = function()
+  {
+    var avg = Score/CountScore;
+    return avg;
+  }
+}  
+//END COURSEWORK CLASS
+
+//STUDENT CLASS
+function Student(fname, lname)
+{
+  var First = fname;
+  var Last = lname;
+  var MEScore;
+  var FEScore;
+  var HWTotal = new Coursework();
+  var ACTotal = new Coursework();
+
+  /*Privileged Student Methods*/
+  this.setmid = function(score, grade)
+  {
+    MEScore = new Exam(grade, score); 
+  }
+   
+  this.setfin = function(score, grade)
+  {
+   FEScore = new Exam(grade, score);
+  }
+  
+    this.addGradedHomework = function(score)
+	{
+		HWTotal.AddScore(score);	
+	}
+	
+	this.addGradedActivity = function(score)
+	{
+		ACTotal.AddScore(score);
+	}
+    this.PrintGrade = function()
+	{
+	 var SCurve;
+	 var FLetter;
+	 if(MEScore.getGrade() < FEScore.getGrade())  
+		  SCurve = MEScore.getLetter();   
+	   else   	   
+		  SCurve = FEScore.getLetter();
+	   
+	   //Final weighted grade calculated
+	   var wavg =(MEScore.getGrade()* .25) + (FEScore.getGrade() * .35) + (HWTotal.average() * .25) + (ACTotal.average() * .15); 
+	   
+	   
+	   
+	   //IF statement to determine the letter grades for the weighted final.
+	   if((wavg >= 90) && (wavg <= 100))
+	   {
+		   FLetter = "A";
+	   }
+	   else if((wavg >= 80) && (wavg < 90 ))
+	   {
+		 FLetter = "B";
+		 if(SCurve == "F")
+           SCurve = "B";
+		   if(FLetter != SCurve)
+		  	  FLetter = SCurve;			  
+	   }
+	   else if((wavg >= 70) && (wavg < 80 ))
+	   {   
+		   FLetter = "C";   	 
+		   if(SCurve == "F")
+			   SCurve = "C";	  
+		  if(FLetter != SCurve)
+		  	  FLetter = SCurve;
+	   }
+	   else if((wavg >= 60) && (wavg < 70 ))
+	   {
+		   FLetter = "D";	   
+		  if(SCurve == "F")
+		      SCurve = "D";	  
+		   if(FLetter != SCurve)
+			   FLetter = SCurve;	
+	   }
+	   else if((wavg < 60))
+	   {
+		   FLetter = "F";  
+		   if(FLetter != SCurve)
+			  FLetter = SCurve;	
+			  
+	   }  	
+	  
+	  document.forms.test.style.display="none";
+	  var finalprint ="The final grade for " + fname +" "+ lname +" is "+ FLetter +" (" + wavg + "%).";
+	  document.getElementById("y").innerHTML=finalprint;
+	  
+	
+	}
+	
+	
+}
+//END STUDENT CLASS
+//MAIN
+function calcGrade()
+{
+ if(formvalidate() != false)
+ {
+  var midtermg = document.forms.test.mgrade.value;
+  var midterml = document.forms.test.mletter.value;
+  var finalg = document.forms.test.fgrade.value;
+  var finall = document.forms.test.fletter.value;
+  var hscore = document.forms.test.hwnum.value;
+  var ascore = document.forms.test.asnum.value;
+  var fname = document.forms.test.fname.value;
+  var lname = document.forms.test.lname.value; 
+  //Student object that puts everything together.
+  s1 = new Student(fname, lname);
+  s1.setmid(midterml, midtermg);
+  s1.setfin(finall, finalg);
+  s1.addGradedHomework(hscore);
+  s1.addGradedActivity(ascore);
+  s1.PrintGrade();
+      
+   
+   return false;
+  } 
+  return false;
+  }
+function formvalidate()
+{
+ //Gets the form information.
+  var midtermg = document.forms.test.mgrade.value;
+  var midterml = document.forms.test.mletter.value;
+  var finalg = document.forms.test.fgrade.value;
+  var finall = document.forms.test.fletter.value;
+  var hscore = document.forms.test.hwnum.value;
+  var ascore = document.forms.test.asnum.value;
+  var fname = document.forms.test.fname.value;
+  var lname = document.forms.test.lname.value;
+  //Sets a value to return true if not changed by the if statements below.
+  var check = 0;  
+  //If statements to alert which parts of the form are invalid.
+  if((fname == null) || (fname == ""))
+  {alert("Please enter a first name."); check = 1;}
+  if((lname == null) || (lname == ""))
+  {alert("Please enter a last name."); check = 1;}
+  if((ascore == null) || (ascore == ""))
+  {alert("Please enter assignment grades."); check = 1;}
+  if((hscore == null) || (hscore == ""))
+  {alert("Please enter homework grades."); check = 1;}
+  if((midtermg == null || midtermg == ""))
+  {alert("Please enter a midterm grade"); check = 1;}
+  if((midterml == null || midterml == ""))
+  {alert("Please enter a midterm letter."); check = 1;}
+  if((finalg == null || finalg == ""))
+  {alert("Please enter a final grade."); check = 1;}
+  if((finall == null || finall == ""))
+  {alert("Please enter a final letter."); check = 1;}
+  
+  //Stops grade calculation
+  if(check == 1)
+  return false;
+  //Allows for the grade calculation. 
+  if(check == 0)
+  return true;
+}
+//END MAIN
+</script>
+<body bgcolor="orange">
+<h1>Dublin Anondson's Assignment VII</h1>
+<form name="test" onsubmit=" return calcGrade();" method="post"> 
+ First Name: <input type="text" name="fname" value="Dublin">
+ Last Name: <input type="text" name="lname" value="Anondson"><br>
+ Assignment Grades:<input type="text" name="asnum" value="78, 27, 66, 44, 100">
+ Homework Grades: <input type="text" name="hwnum" value="120, 55, 22, 90, 88"><br>
+ Midterm Exam Letter: <input type="text" name="mletter" value="A">
+ Midterm Exam Grade:  <input type="text" name="mgrade" value="90"><br>
+ Final Exam Letter: <input type="text" name="fletter" value="F">
+ Final Exam Grade:  <input type="text" name="fgrade" value="77"><br>
+ <input type="submit" value="Submit">
+</form><br>
+<p2 id="y">wavg</p2>
+</body>
+</html>

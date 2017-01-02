@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+function changeImage()
+{
+   element=document.getElementById('pic') 
+if(element.src.match("col.jpg"))
+  {
+   element.src="cool.jpg";
+  }
+  else
+  {
+  element.src = "col.jpg";
+  }
+}
+
+
+var check = false;
+function toggleself() 
+{
+	var get = document.getElementById("a");
+	if (get.style.display == "block") {
+		get.style.display = "none";
+                check = false;       
+	}
+	else {	
+               get.style.display = "block";
+                 check = true;	
+        }
+}
+
+function word()
+{
+   var test = check;
+     var toot = document.getElementById("w");
+   
+   if(test == true)
+     {toot.innerHTML="hide";}
+   
+   if(test == false)
+     {toot.innerHTML="see";}
+}
+
+</script>
+
+<head>
+<title>Awesome Stuff</title>
+<style>
+ #a {display:none;}
+ #tab {display:none;}
+</style>
+</head>
+<body>
+<h1>Dublin Anondson's Page</h1>
+<body style="background-color:#90EE90">
+<img id="pic" onclick="changeImage()" src="cool.jpg">
+<br>
+<p>This is my website, it's kind of plain jane here, why don't we check out some guitar tabs?</p>   <a href="http://www.ultimate-guitar.com" target="_blank">Check it out!</a>
+<br>
+
+  		<p1>Please push <input type="button" onclick="toggleself(); word();" value="this"></button> to </p1><p2 id="w"> see </p2><p3> more about me!</p3>
+<br>
+
+ 
+<div id = "a">I was born in Anchorage Alaska in December 1992, when I was 3 I was matched against a grizzly bear in a fight to the death. Luckily, I <br>
+              had the power of my ancestors at my disposal, and I defeated him with hyperbeam. Afterwards, I went sledding at a hill near my house, <br>
+              the hill was called moose hill and it was the best hill in my neighborhood. In 2003, I moved to New Jersey, it was a real culture shock <br>
+              I met a lot of unique people there. Every year, the neighborhoods would have a cleanup week, where they could get rid of large stuff<br>
+              and people would come pick the stuff up. I was lucky enough to get a 1985 Fender Stratocaster, It didn't have the pickups or anything<br>
+              so I ended up buying an EMG-85 to put in it. It's one of my favorite guitars now, it might be beat up, but it's my baby.</div> 
+            
+<br>
+<br>
+<script>
+var tuft = false;
+function togglecourse()
+{
+ var got = document.getElementById("tab");
+	if (got.style.display == "inline-table") {
+		got.style.display = "none";
+                tuft = false;       
+	}
+	else {		
+          got.style.display = "inline-table";
+          tuft = true;	
+        }
+}
+
+
+function check()
+{
+   var tot = document.getElementById("rewrite");
+   if(tuft == true)
+   {tot.innerHTML="hide";}
+   else if(tuft == false)
+   {tot.innerHTML="see";}
+}
+
+</script> 
+
+               <p4>Please push <input type="button" onclick="togglecourse(); check();" value="this"></button> to </p4><p5 id="rewrite"> see </p5><p6> a list of my courses!</p6>
+<br>  
+<table id="tab" border="1">
+<tr>
+<th> Course </th>
+<th> Day </th>
+<th> Time </th>
+</tr>
+<tr>
+<td> Discrete Mathematics </td>
+<td> MWF </td>
+<td> 8:30AM-9:25AM </td>
+</tr>
+<tr>
+<td> Discrete Mathematics Drill </td>
+<td> F </td>
+<td> 12:55PM-1:45PM </td>
+</tr>
+<tr>
+<td> Music Lecture </td>
+<td> MWF </td>
+<td> 10:45AM-11:35AM </td>
+</tr>
+<tr>
+<td> Operating Systems </td>
+<td> MWF </td>
+<td> 3:05AM-3:55AM </td>
+</tr>
+<tr>
+<td> Public Speaking </td>
+<td> TTh </td>
+<td> 9:30AM-10:45AM </td>
+</tr>
+<tr>
+<td> Programming Paradigms </td>
+<td> TTh </td>
+<td> 11:00AM-12:15AM </td>
+</tr>
+</table>
+
+
+</body>
+</html> 

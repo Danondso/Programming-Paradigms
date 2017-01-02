@@ -1,0 +1,13 @@
+!#/bin/bash
+
+set -u -e
+
+javac Controller.java
+javac Model.java
+javac View.java
+javac Sprite.java
+javac Turtle.java
+javac Razorback.java
+
+
+java Controller
